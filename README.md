@@ -11,27 +11,34 @@ footprint.__init__(name='name', center=(0,0), board=(0,0))
    - 'center' sets the center point of the footprint
    - 'name' sets the name of the footprint
 
+footprint.poly(points, origin=(0,0), layer='F.Cu', flip=False)
+   - draw a filled polygon using the points listed in 'points'
+   - 'origin' sets the starting corner of the rectangle
+   - 'layer' sets the KiCad PCB layer 
+   - setting 'flip' flips the Y axis
+
 footprint.rect(size, origin=(0,0), layer='F.Cu', flip=False)
    - draw a filled rectangle using a polygon
    - 'origin' sets the starting corner of the rectangle
    - 'layer' sets the KiCad PCB layer 
    - setting 'flip' flips the Y axis
 
-footprint.edge(size, origin=(0,0), width=0.15, layer='Edge.Cuts')
-   - draw a rectange using lines
+footprint.edge(size, origin=(0,0), width=0.15, layer='Edge.Cuts', flip=False)
+   - draw a unfilled rectange using lines
    - 'origin' sets the starting corner of the rectangle
    - 'width' sets the width of the line along the rectangle
    - 'layer' sets the KiCad PCB layer 
+   - setting 'flip' flips the Y axis
 
-footprint.via(pos, origin=(0,0), size=(1,1), drill=0.5, pad=1)
+footprint.via(pos, origin=(0,0), size=(1,1), drill=0.5, pad=1, flip=False)
    - create a via at pos + origin
    - 'size' sets the size of the via
    - 'drill' sets the size of the drill hole
    - 'pad' sets the type of the via
+   - setting 'flip' flips the Y axis
 
 footprint.write()
    - print the KiCad footprint to stdout
-
 ```
 
 For example, the following is a 2.4GHz BLE inverted F antenna.  The dimensions
