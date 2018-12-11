@@ -7,7 +7,7 @@ The library provides the following methods:
 
 ```
 footprint.__init__(name='name', center=(0,0), board=(0,0))
-   - 'board' sets the size of the board; used by 'flip'
+   - 'board' sets the size of the board (used by 'flip')
    - 'center' sets the center point of the footprint
    - 'name' sets the name of the footprint
 
@@ -18,7 +18,7 @@ footprint.rect(size, origin=(0,0), layer='F.Cu', flip=False)
    - setting 'flip' flips the Y axis
 
 footprint.edge(size, origin=(0,0), width=0.15, layer='Edge.Cuts')
-   - draw a rectange using lines, needed 
+   - draw a rectange using lines
    - 'origin' sets the starting corner of the rectangle
    - 'width' sets the width of the line along the rectangle
    - 'layer' sets the kicad PCB layer 
@@ -34,7 +34,7 @@ footprint.write()
 
 ```
 
-For example, the following is an 2.4GHz BLE inverted F antenna.  The dimensions
+For example, the following is a 2.4GHz BLE inverted F antenna.  The dimensions
 were taken from the NXP Antenna Design Guide, page 15.
 
 ```
