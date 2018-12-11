@@ -1,7 +1,7 @@
 
 ## footprint
 
-Create kicad footprints using python.
+Create kicad footprints using python 3.
 
 The library provides the following methods:
 
