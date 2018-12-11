@@ -1,7 +1,7 @@
 
 ## footprint
 
-Create kicad footprints using python 3.
+Create KiCad footprints using python 3.
 
 The library provides the following methods:
 
@@ -14,14 +14,14 @@ footprint.__init__(name='name', center=(0,0), board=(0,0))
 footprint.rect(size, origin=(0,0), layer='F.Cu', flip=False)
    - draw a filled rectangle using a polygon
    - 'origin' sets the starting corner of the rectangle
-   - 'layer' sets the kicad PCB layer 
+   - 'layer' sets the KiCad PCB layer 
    - setting 'flip' flips the Y axis
 
 footprint.edge(size, origin=(0,0), width=0.15, layer='Edge.Cuts')
    - draw a rectange using lines
    - 'origin' sets the starting corner of the rectangle
    - 'width' sets the width of the line along the rectangle
-   - 'layer' sets the kicad PCB layer 
+   - 'layer' sets the KiCad PCB layer 
 
 footprint.via(pos, origin=(0,0), size=(1,1), drill=0.5, pad=1)
    - create a via at pos + origin
@@ -30,7 +30,7 @@ footprint.via(pos, origin=(0,0), size=(1,1), drill=0.5, pad=1)
    - 'pad' sets the type of the via
 
 footprint.write()
-   - print the kicad footprint to stdout
+   - print the KiCad footprint to stdout
 
 ```
 
@@ -54,7 +54,7 @@ the patch16.exe DOS program by WB0DGF.  A full PCB
 is created by the following code.  
 
 The simpliest way
-to import this PCB (or other footprints) into Kicad
+to import this PCB (or other footprints) into KiCad
 is to first run Pcbnew, click open footprint
 editor, in the editor click import footprint, and
 lastly click insert footprint into current board.
