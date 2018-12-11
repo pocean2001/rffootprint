@@ -47,7 +47,7 @@ fp.rect((-4.4, 1), origin=(4.4, 3 + 1 + 5.4), flip=True)
 fp.rect((1, 1 + 5.4 + 1 + 18.2), origin=(4.4, 3), flip=True)
 fp.write()
 ```
-[](invertedf.png)
+![](invertedf.png)
 
 Next is a 2.4GHz patch antenna created using
 the patch16.exe DOS program by WB0DGF.  A full PCB
@@ -84,7 +84,7 @@ d = l/2 + dl + ext
 fp.rect((zw, board[1]/2 - d), origin=(-zw/2, d))
 fp.write()
 ```
-[](patch.png)
+![](patch.png)
 
 
 
