@@ -1,4 +1,4 @@
-(module name (layer F.Cu) (tedit 5C0FEF09)
+(module name (layer F.Cu) (tedit 5C10067A)
   (fp_text reference R** (at 0 0.5) (layer F.SilkS) hide
     (effects (font (size 1 1) (thickness 0.15)))
   )

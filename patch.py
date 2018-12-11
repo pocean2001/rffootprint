@@ -13,9 +13,14 @@ from footprint import Footprint
 fp = Footprint()
 board = (100, 80)
 ext = h * .44 * (1 - dw / zw) 
+corner = (-board[0]/2, -board[1]/2)
 
-fp.edge(board, origin=(-board[0]/2, -board[1]/2), layer='Edge.Cuts')
-fp.rect(board, origin=(-board[0]/2, -board[1]/2), layer='B.Cu')
+fp.edge(board, origin=corner, layer='Edge.Cuts')
+fp.rect(board, origin=corner, layer='B.Cu')
+
+fp.rect((8, -4), origin=(-4, board[1]/2), layer='F.Mask')
+fp.rect((8, -4), origin=(-4, board[1]/2), layer='B.Mask')
+
 fp.rect((w, l), origin=(-w/2, -l/2))
 fp.rect((dw, dl + ext), origin=(-dw/2, l/2))
 d = l/2 + dl + ext 
