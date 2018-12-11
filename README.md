@@ -3,6 +3,8 @@
 
 Create KiCad footprints using Python 3.
 
+![](invertedf.png)
+
 The library provides the following methods:
 
 ```
@@ -54,6 +56,19 @@ fp.rect((-4.4, 1), origin=(4.4, 3 + 1 + 5.4), flip=True)
 fp.rect((1, 1 + 5.4 + 1 + 18.2), origin=(4.4, 3), flip=True)
 fp.write()
 ```
+or
+
+```
+from footprint import Footprint
+fp = Footprint()
+w = 4.4
+h = 1 + 5.4 + 1 + 18.2
+fp.poly([(0, 0), (w + 1, 0), (w + 1, h), (w, h), 
+         (w, 2 + 5.4), (0, 2 + 5.4), (0, 1 + 5.4),
+         (w, 1 + 5.4), (w, 1), (0, 1)], flip=True)
+fp.write()
+```
+
 ![](invertedf.png)
 
 Next is a 2.4GHz patch antenna created using
