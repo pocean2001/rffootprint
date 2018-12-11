@@ -1,7 +1,7 @@
 
 ## footprint
 
-Create KiCad footprints using python 3.
+Create KiCad footprints using Python 3.
 
 The library provides the following methods:
 
