@@ -3,6 +3,24 @@ import time
 
 class Footprint:
 
+    def pos(self, pos, origin, flip=False):
+        cx, cy = self.center
+        x = pos[0] + origin[0]
+        y = pos[1] + origin[1]
+        if flip: y = self.board[1] - y
+        return x - cx, y - cy
+
+    def line(self, start, end, origin, width=None, layer=None, flip=False):
+        x0, y0 = self.pos(start, origin, flip=flip)
+        x1, y1 = self.pos(end, origin, flip=flip)
+        self.state += "(fp_line\n"
+        self.state += "  (start %g %g)\n" % (x0, y0)
+        self.state += "  (end %g %g)\n" % (x1, y1)
+        self.state += "  (layer {layer}) (width {width}))\n".format(
+                      layer=layer, width=width)
+
+    ############
+
     def __init__(self, name='name', center=(0,0), board=(0,0)):
         tedit = int(round(time.time()))
         unit = "R"   # prefix for the part
@@ -18,47 +36,31 @@ class Footprint:
   )
 """.format(tedit=tedit, name=name, unit=unit)
 
-    def write(self):
-        print(self.state + ")")
+    def poly(self, points, origin=(0,0), layer='F.Cu', flip=False):
+        self.state += "(fp_poly (pts\n"
+        for p in points + points[:1]:
+            self.state += "  (xy %g %g)\n" % self.pos(p, origin, flip=flip)
+        self.state += "  ) (layer {layer}) (width 0))\n".format(layer=layer)
 
     def rect(self, size, origin=(0,0), layer='F.Cu', flip=False):
         w, h = size
-        x, y = origin
-        if flip:
-            h = -h
-            y = self.board[1] - y
-        center = self.center
-        self.state += "(fp_poly (pts (xy %g %g)\n" % (x - center[0], y - center[1])
-        self.state += "  (xy %g %g)\n" % (x + w - center[0], y - center[1])
-        self.state += "  (xy %g %g)\n" % (x + w - center[0], y + h - center[1])
-        self.state += "  (xy %g %g)\n" % (x - center[0], y + h - center[1])
-        self.state += "  (xy %g %g))\n" % (x - center[0], y - center[1])
-        self.state += "  (layer {layer}) (width 0))\n".format(
-                      layer=layer)
+        points = [(0, 0), (w, 0), (w, h), (0, h)]
+        self.poly(points, origin=origin, layer=layer, flip=flip)
 
-    def line(self, size, origin=(0,0), width=0.15, layer=None):
-        w, h = size
-        x, y = origin
-        center = self.center
-        self.state += "(fp_line (start %g %g)\n" % (x - center[0], y - center[1])
-        self.state += "  (end %g %g)\n" % (x + w - center[0], y + h - center[1])
-        self.state += "  (layer {layer}) (width {width}))\n".format(
-                      layer=layer, width=width)
-
-    def edge(self, size, origin=(0,0), width=0.15, layer='Edge.Cuts'):
-        w, h = size
-        x, y = origin
-        self.line((w, 0), (x, y), width=width, layer=layer)
-        self.line((0, h), (x + w, y), width=width, layer=layer)
-        self.line((-w, 0), (x + w, y + h), width=width, layer=layer)
-        self.line((0, -h), (x, y + h), width=width, layer=layer)
-
-    def via(self, pos, origin=(0,0), size=(1,1), drill=0.5, pad=1):
-        w, h = pos
-        x, y = origin
-        center = self.center
+    def via(self, point, origin=(0,0), size=(1,1), drill=0.5, pad=1, flip=False):
         self.state += "(pad {pad} thru_hole circle\n".format(pad=pad)
-        self.state += "  (at %d %d)\n" % (x + w - center[0], y + h - center[1])
+        self.state += "  (at %d %d)\n" % self.pos(point, origin, flip=flip)
         self.state += "  (size {sizex:g} {sizey:g})\n".format(sizex=size[0], sizey=size[1])
         self.state += "  (drill {drill:g}) (layers *.Cu))\n".format(drill=drill)
+
+    def edge(self, size, origin=(0,0), width=0.15, layer='Edge.Cuts', flip=False):
+        w, h = size
+        start = (0, 0)
+        for end in [(w, 0), (w, h), (0, h), (0, 0)]:
+           self.line(start, end, origin=origin, width=width, layer=layer, flip=flip)
+           start = end
+
+    def write(self):
+        print(self.state + ")")
+
 
