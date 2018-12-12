@@ -6,3 +6,5 @@ stripline.kicad_mod
 stripline.py
 notes.txt
 zip.sh
+invertedf_poly.py
+invertedf_poly.kicad_mod
