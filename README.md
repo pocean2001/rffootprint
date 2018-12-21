@@ -75,13 +75,6 @@ Next is a 2.4GHz patch antenna created using
 the patch16.exe DOS program by WB0DGF.  A full PCB
 is created by the following code.  
 
-The simpliest way
-to import this PCB (or other footprints) into KiCad
-is to first run Pcbnew, click open footprint
-editor, in the editor click import footprint, and
-lastly click insert footprint into current board.
-Go back to Pcbnew and find the footprint at 0,0 in the 
-upper left hand corner. 
 
 ```
 # 2.4GHz Patch
@@ -114,6 +107,14 @@ fp.rect((zw, board[1]/2 - d), origin=(-zw/2, d))
 fp.write()
 ```
 ![](patch.png)
+
+The simpliest way
+to import this PCB (or other footprints) into KiCad
+is to first run Pcbnew, click open footprint
+editor, in the editor click import footprint, and
+lastly click insert footprint into current board.
+Go back to Pcbnew and find the footprint at 0,0 in the 
+upper left hand corner. 
 
 The file 'patch.svg' was created by printing the F-Cu layer
 only of the footprint in Pcbnew.  The result was then modified
