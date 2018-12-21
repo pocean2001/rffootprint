@@ -124,4 +124,6 @@ to remove the line crossings.
 
 ![](patch.svg)
 
+Cutting the SVG file (without the unioning) on copper foil tape with a vinyl cutter gave the following:
 
+![](patch.jpg)
