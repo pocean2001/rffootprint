@@ -115,7 +115,12 @@ fp.write()
 ```
 ![](patch.png)
 
+The file 'patch.svg' was created by printing the F-Cu layer
+only of the footprint in Pcbnew.  The result was then modified
+in Inkscape: first changing the bounding box, removing
+the fill from the rectangles and lastly unioning the result
+to remove the line crossings.
 
-
+![](patch.svg)
 
 
