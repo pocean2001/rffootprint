@@ -1,10 +1,10 @@
-
-patch.txt
 pygerber.py
 pyinkscape.py
+
 stripline.kicad_mod
 stripline.py
+invertedf_poly.kicad_mod
+invertedf_poly.py
+
 notes.txt
 zip.sh
-invertedf_poly.py
-invertedf_poly.kicad_mod

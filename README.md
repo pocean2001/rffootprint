@@ -79,7 +79,7 @@ is created by the following code.
 ```
 # 2.4GHz Patch
 
-l = 29.2   # length of patch
+l = 27.2   # length of patch
 w = 50.8   # width of patch
 dl = 18    # length of quarter wave line
 dw = 1.3   # width of quarter wave line
