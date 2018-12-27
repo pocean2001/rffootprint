@@ -17,13 +17,12 @@ class Footprint:
         self.state += "  (layer {layer}) (width {width}))\n".format(
                       layer=layer, width=width)
 
-    ############
-
-    def __init__(self, name='name', center=(0,0), board=(0,0)):
-        tedit = int(round(time.time()))
+    def initialize(self, name=None, center=None, board=None):
+        self.center = center or (0, 0)
+        self.board = board or (0, 0)
+        name = name or 'name'
         unit = "R"   # prefix for the part
-        self.center = center
-        self.board = board
+        tedit = int(round(time.time()))
         self.state = """\
 (module {name} (layer F.Cu) (tedit {tedit:8X})
   (fp_text reference {unit}** (at 0 0.5) (layer F.SilkS) hide
@@ -33,6 +32,11 @@ class Footprint:
     (effects (font (size 1 1) (thickness 0.15)))
   )
 """.format(tedit=tedit, name=name, unit=unit)
+
+    ############
+
+    def __init__(self, name=None, center=None, board=None):
+        self.initialize(name=name, center=center, board=board)
 
     def poly(self, points, origin=(0,0), layer='F.Cu', flip=False):
         self.state += "(fp_poly (pts\n"
