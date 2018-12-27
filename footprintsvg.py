@@ -83,4 +83,16 @@ build(Footprint())
 # fill = svg.fill([(0, 0), (200, 0), (200,100), (0,100)], origin=(100,300))
 # layer.add(fill)
 
+"""
+  <g
+     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+     id="g106"
+     transform="translate(0,-5905.5233)">
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.37795275;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 94.011719 40.34375 L 94.011719 150.70508 L 187.55469 150.70508 L 187.55469 220.25781 L 184.15625 220.25781 L 184.15625 246.70508 L 195.86914 246.70508 L 195.86914 220.25781 L 192.4707 220.25781 L 192.4707 150.70508 L 286.01172 150.70508 L 286.01172 40.34375 L 94.011719 40.34375 z "
+       transform="matrix(104.16687,0,0,104.16687,0,5905.4971)"
+       id="polyline100" />
+  </g>
+"""
 
