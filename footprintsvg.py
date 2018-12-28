@@ -7,17 +7,11 @@ import sys
 
 class Footprint:
 
-    def tomm(self, pos):
-        return (pos[0] * svgwrite.mm, pos[1] * svgwrite.mm)
-
-    def touser(self, pos):
-        k = 3.543307
-        return (k * pos[0], k * pos[1])
-
     def pos(self, pos, origin=(0, 0)):
+        k = 3.543307
         x = pos[0] + origin[0]
         y = pos[1] + origin[1]
-        return (x, y)
+        return (k * x, k * y)
 
     def __init__(self, **kw):
         self.initialize()
@@ -39,7 +33,6 @@ class Footprint:
 
     def poly(self, points, origin=(0,0), **kw):
         points = map(lambda x: self.pos(x, origin), points)
-        points = map(lambda x: self.touser(x), points)
         el = self.dwg.polygon(points)
         self.dwg.add(el)
 
