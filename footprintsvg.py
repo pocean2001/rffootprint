@@ -1,98 +1,86 @@
 
-from svgwrite import Drawing, mm
-import time
+import svgwrite
+import sys
 
 class Footprint:
 
+    def tomm(self, pos):
+        return (pos[0] * svgwrite.mm, pos[1] * svgwrite.mm)
+
     def pos(self, pos, origin=(0, 0), flip=False):
+        cx, cy = self.center
         x = pos[0] + origin[0]
         y = pos[1] + origin[1]
         if not flip: y = self.board[1] - y
-        return ((x - self.center[0]) * mm, (y - self.center[1]) * mm)
+        return self.tomm((x - cx, y - cy))
 
-    def __init__(self, center=None, board=None, name=None):
-        self.initialize(center=center, board=board, name=name)
+    def add(self, el):
+        self.dwg.add(el)
+        # dwg = self.dwg
+        # g = dwg.g()
+        # g.add(el)
+        # dwg.add(g)
+
+    def __init__(self, center=None, board=None, **kw):
+        self.initialize(center=center, board=board)
 
     ############
 
-    def initialize(self, center=None, board=None, name=None):
-        name = name or 'noname'
+    def initialize(self, center=None, board=None, **kw):
         center = center or (0, 0)
         board = board or (0, 0)
-        self.dwg = Drawing(name + '.svg')
-        self.name = name
+        self.dwg = svgwrite.Drawing(profile='tiny')
         self.center = center
         self.border = board
 
-    def line(self, start, end, origin, width=None, layer=None, flip=False):
-        self.dwg.add(self.dwg.line(
-            start=self.pos(start, origin, flip=flip),
-            end=self.pos(end, origin, flip=flip)))
+    def line(self, start, end, origin, width=None, flip=False, **kw):
+        start = self.pos(start, origin, flip=flip)
+        end = self.pos(end, origin, flip=flip)
+        self.add(self.dwg.line(start, end, stroke='black'))
 
-    def rect(self, size, origin=(0,0), layer='F.Cu', flip=False):
+    def rect(self, size, origin=(0,0), flip=False, **kw):
+        insert = self.pos(origin, flip=flip)
         w, h = size
-        self.dwg.add(self.dwg.rect(
-            insert=self.pos(origin, flip=flip),
-            size=(w * mm, h * mm)))
+        points = [(0, 0), (w, 0), (w, h), (0, h)]
+        self.add(self.poly(points, origin, flip=flip))
+        # size = self.tomm(size)
+        # self.add(self.dwg.rect(insert, size, fill='none', stroke='black'))
 
-    def poly(self, points, origin=(0,0), layer='F.Cu', flip=False):
+    def poly(self, points, origin=(0,0), flip=False, **kw):
         points = map(lambda x: self.pos(x, origin, flip=flip), points)
-        self.dwg.add(self.dwg.polygon(points))
+        self.add(self.dwg.polygon(points, stroke='black'))
 
-    def edge(self, size, origin=(0,0), layer='Edge.Cuts', width=0.15, flip=False):
-        points = [(0, 0), (w, 0), (w, h), (0, h), (0, 0)]
-        points = map(lambda x: self.pos(x, origin, flip=flip), points)
-        self.dwg.add(self.dwg.polyline(points))
+    def edge(self, size, origin=(0,0), width=0.15, flip=False, **kw):
+        size = self.tomm(size)
+        self.dwg['width'] = size[0]
+        self.dwg['height'] = size[1]
+        # points = [(0, 0), (w, 0), (w, h), (0, h)]
+        # points = map(lambda x: self.pos(x, origin, flip=flip), points)
+        # self.dwg.add(self.dwg.polyline(points))
 
-    def via(self, point, origin=None, size=None, drill=None, pad=None, flip=None):
+    def via(self, point, **kw):
         pass
 
-    def write(self):
-        self.dwg.save(pretty=True)
+    def write(self, filename=None, pretty=True):
+        if filename:
+            self.dwg.saveas(filename, pretty=pretty)
+        else:
+            self.dwg.write(sys.stdout, pretty=pretty)
 
 
 
-def build(fp):
+def build(fp, filename=None):
     # BLE Antenna Design Guide, NXP Semiconductors, p15
-    board = (0, 32)
-    center = (board[0] / 2, board[1] / 2)
-    fp.initialize(center=center, board=board)
+    board = (16, 32)
+    # center = (board[0] / 2, board[1] / 2)
+    # fp.initialize(center=center, board=board)
+    fp.initialize()
     fp.rect((-4.4, 1), origin=(4.4, 3), flip=True)
     fp.rect((-4.4, 1), origin=(4.4, 3 + 1 + 5.4), flip=True)
     fp.rect((1, 1 + 5.4 + 1 + 18.2), origin=(4.4, 3), flip=True)
-    fp.write()
+    fp.edge(board)
+    fp.write(filename)
 
 build(Footprint())
 
-
-
-# layer = svg.layer(label="Cu")
-# svg.add(layer)
-# layer.add(svg.rect(50, 2, origin=(24, 0)))
-# stroke = svg.stroke([(50, 0), (400, 0), (400,500), (50,500)])
-# layer.add(stroke)
-
-# edge cuts
-# layer = svg.layer(label="Edge.Cuts")
-# svg.add(layer)
-# layer.add(svg.rec(0, ))
-
-# stroke = svg.fill([(0, 0), (200, 0), (200,100), (0,100)], origin=(100,100))
-# layer.add(stroke)
-
-# fill = svg.fill([(0, 0), (200, 0), (200,100), (0,100)], origin=(100,300))
-# layer.add(fill)
-
-"""
-  <g
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-     id="g106"
-     transform="translate(0,-5905.5233)">
-    <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.37795275;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 94.011719 40.34375 L 94.011719 150.70508 L 187.55469 150.70508 L 187.55469 220.25781 L 184.15625 220.25781 L 184.15625 246.70508 L 195.86914 246.70508 L 195.86914 220.25781 L 192.4707 220.25781 L 192.4707 150.70508 L 286.01172 150.70508 L 286.01172 40.34375 L 94.011719 40.34375 z "
-       transform="matrix(104.16687,0,0,104.16687,0,5905.4971)"
-       id="polyline100" />
-  </g>
-"""
 
