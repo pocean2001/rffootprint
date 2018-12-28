@@ -1,6 +1,6 @@
 
 all:
-	python3 footprintsvg.py | tee noname.svg
+	python3 footprintsvg.py
 
 examples: 
 	python3 invertedf.py > invertedf.kicad_mod

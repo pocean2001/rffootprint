@@ -127,3 +127,8 @@ to remove the line crossings.
 Cutting the SVG file (without the unioning) on copper foil tape with a vinyl cutter gave the following:
 
 ![](patch.jpg)
+
+## footprintsvg
+
+Like footprint but generates svg files for say an vinyl cutter.
+
