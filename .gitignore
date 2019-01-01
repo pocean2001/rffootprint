@@ -1,4 +1,5 @@
 dev/
 makefile
-noname.svg
+noname.*
+notes.txt
 zip.sh

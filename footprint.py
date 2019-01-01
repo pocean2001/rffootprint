@@ -17,6 +17,11 @@ class Footprint:
         self.state += "  (layer {layer}) (width {width}))\n".format(
                       layer=layer, width=width)
 
+    def __init__(self, **kw):
+        self.initialize(**kw)
+
+    ############
+
     def initialize(self, name=None, center=None, board=None):
         self.center = center or (0, 0)
         self.board = board or (0, 0)
@@ -32,11 +37,6 @@ class Footprint:
     (effects (font (size 1 1) (thickness 0.15)))
   )
 """.format(tedit=tedit, name=name, unit=unit)
-
-    ############
-
-    def __init__(self, name=None, center=None, board=None):
-        self.initialize(name=name, center=center, board=board)
 
     def poly(self, points, origin=(0,0), layer='F.Cu', flip=False):
         self.state += "(fp_poly (pts\n"
