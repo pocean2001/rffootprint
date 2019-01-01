@@ -130,5 +130,8 @@ Cutting the SVG file (without the unioning) on copper foil tape with a vinyl cut
 
 ## footprintsvg
 
-Like footprint but generates svg files for say an vinyl cutter.
+Like footprint but generates svg files for say an vinyl cutter.  See patch_svg.py.
+It generates the following svg file:
+
+![](patch_svg.svg)
 
