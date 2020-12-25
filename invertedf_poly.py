@@ -27,8 +27,8 @@ def build(fp):
              (0, 1 + 5.4),
              (w, 1 + 5.4),
              (w, 1),
-             (0, 1)], flip=True)
+             (0, 1)])
     fp.write()
 
-build(Footprint())
+build(Footprint(flip=True))
 
