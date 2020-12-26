@@ -91,6 +91,8 @@ to remove the line crossings.
 ![](patch.svg)
 
 Cutting the SVG file (without the unioning) on copper foil tape with a vinyl cutter gave the following:
+(The cuts that cross the foil were the result of me forgetting to "union" the paths in inkscape before 
+printing).
 
 ![](patch.jpg)
 
